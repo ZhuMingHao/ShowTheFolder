@@ -1,0 +1,35 @@
+﻿<Page
+    x:Class="ShowTheFolder.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ShowTheFolder"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+   >
+    <Page.DataContext>
+        <local:MainViewModel/>
+    </Page.DataContext>
+    <Page.Resources>
+        <local:ImageTypeConverter x:Key="ImageConverter"/>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Button Content="Open" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" Command="{Binding PickCommand}"/>
+        <ListView Name="MylistView" Grid.Row="1" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectItem,Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding IType, Converter={StaticResource ImageConverter} }" Height="30" Width="30"/>
+                        <TextBlock Text="{Binding ItemName}" TextAlignment="Center" TextLineBounds="TrimToBaseline"  Margin="15,5,0,0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+           
+        </ListView>
+    </Grid>
+</Page>
